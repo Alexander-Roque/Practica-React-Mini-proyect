@@ -1,22 +1,26 @@
 import * as React from "react"
 import "./Filter.css"
+import { useFilters } from "../hooks/useFilters";
 
-export function Filter({onChangeFilter}) {
-    const [mainPrice, setMainPrice] = React.useState(0);
+export function Filter() {
+    const {filters ,setFilters} = useFilters() //estado global
+
+    // const [mainPrice, setMainPrice] = React.useState(0); //estado local
 
     const mainPriceId = React.useId()
     const filterCatergoryId = React.useId()
 
     function onChangeMainPrice(event){
-        setMainPrice(event.target.value)
-        onChangeFilter(prevState => ({
+        // tenemos dos fuentes de la verdad
+        // setMainPrice(event.target.value)
+        setFilters(prevState => ({
             ...prevState,
             minPrice: event.target.value
         }))
     }
 
     function handleChangeCategory(event){
-        onChangeFilter(prevState => ({
+        setFilters(prevState => ({
             ...prevState,
             category:event.target.value
         }))
@@ -31,8 +35,9 @@ export function Filter({onChangeFilter}) {
                 id={mainPriceId}
                 min="0"
                 max="1000"
-                onChange={onChangeMainPrice} />
-                <span>${mainPrice}</span>
+                onChange={onChangeMainPrice}
+                value={filters.minPrice} />
+                <span>${filters.minPrice}</span>
             </div>
             <div>
                 <label htmlFor={filterCatergoryId}>Category</label>

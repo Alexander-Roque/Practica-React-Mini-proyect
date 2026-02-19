@@ -3,44 +3,26 @@ import {Products} from './components/Product.jsx'
 import * as React from "react"
 import Header from "./components/Headers.jsx";
 import { Footer } from "./components/Footer.jsx";
-import { FiltersContext } from "./context/Filter.context.jsx";
+import { useFilters } from "./hooks/useFilters.js";
+import { Cart } from "./components/Cart.jsx";
+import { CartProvite } from "./context/Cart.context.jsx";
 
-function useFilters(){
-  // const [filters, setFilter] = React.useState({
-  //   category :"all",
-  //   minPrice: 0
-  // })
-  const filters = React.useContext(FiltersContext)
-  console.log(filters)
-  const setFilters = () => {}
-
-  function filterProducts(products){
-    return products.filter(product =>{
-      return(
-        product.price >= filters.minPrice && (
-          filters.category === "all" || product.category === filters.category
-        )
-      )
-    })
-  }
-
-  return {filters, filterProducts, setFilters}
-}
 
 function App() {
   const [products] = React.useState(initialProducts);
 
-  const {filters, filterProducts, setFilter} = useFilters()
+  const {filterProducts} = useFilters()
 
-  // este es el problema
   const filteredProducts = filterProducts(products)
-  // console.log(filteredProducts)
 
   return (
     <>
-    <Header changeFilter={setFilter} />
+    <CartProvite>
+    <Cart />
+    <Header />
       <Products products={filteredProducts} />
-      <Footer filters={filters} />
+      <Footer />
+    </CartProvite>
     </>
   )
 }
