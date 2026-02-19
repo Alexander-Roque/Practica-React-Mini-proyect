@@ -14,10 +14,10 @@ function CartItem({thumbnail, price, title, quantity, addToCart}) {
                 <strong>{title}</strong> - {price}
             </div>
             <footer>
-                <small onClick={addToCart}>
+                <small>
                     Qty: {quantity}
                 </small>
-                <button>
+                <button onClick={addToCart}>
                     +
                 </button>
             </footer>

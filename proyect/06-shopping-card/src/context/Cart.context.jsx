@@ -25,7 +25,7 @@ export function CartProvite({children}){
     }
 
     function removeFromCart(product){
-        setCart(prevState => prevState.filter(item=> item.id ==! product.id))
+        setCart(prevState => prevState.filter(item=> item.id !== product.id))
     }
  
     function clearToCart(){
