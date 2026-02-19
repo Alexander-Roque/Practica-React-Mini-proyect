@@ -1,10 +1,34 @@
 import * as React from "react"
 import { CartIcon, ClearCartIcon, RemoveFromCartIcon } from "./Icons"
 import "./Cart.css"
+import { useCart } from "../hooks/useCart"
+
+function CartItem({thumbnail, price, title, quantity, addToCart}) {
+    return(
+        <li>
+            <img
+            src={thumbnail}
+            alt={title}
+            />
+            <div>
+                <strong>{title}</strong> - {price}
+            </div>
+            <footer>
+                <small onClick={addToCart}>
+                    Qty: {quantity}
+                </small>
+                <button>
+                    +
+                </button>
+            </footer>
+        </li>
+    )
+}
 
 export function Cart() {
     // const [buy, setBuy] = React.useState()
     const CartCheckBox = React.useId()
+    const {cart, clearToCart, addToCart} = useCart()
 
     return(
         <>
@@ -15,25 +39,12 @@ export function Cart() {
 
         <aside className="cart">
             <ul>
-                <li>
-                    <img
-                    src="https://cdn.dummyjson.com/product-images/6/thumbnail.png"
-                    alt="Portatil"
-                     />
-                     <div>
-                        <strong>iPhone</strong> - $1499
-                     </div>
-                     <footer>
-                        <small>
-                            Qty: 1
-                        </small>
-                        <button>
-                            +
-                        </button>
-                     </footer>
-                </li>
+                {cart.map((product)=>
+                    <CartItem key={product.id} addToCart={()=>addToCart(product)} {...product} />
+
+                )}
             </ul>
-            <button className="cart-button">
+            <button onClick={clearToCart}>
                 <RemoveFromCartIcon />
             </button>
         </aside>
