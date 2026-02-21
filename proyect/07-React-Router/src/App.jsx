@@ -3,6 +3,7 @@ import { EVENT } from './consts'
 import HomePage from "./pages/home";
 import { About } from "./pages/about";
 import { Router } from "./Router";
+import Error404 from "./pages/Error";
 
 const routes = [
   {
@@ -14,8 +15,8 @@ const routes = [
     Component: About
   },
   {
-    path: "/cori",
-    Component: () => <h1>Cori Gordo Perdedor</h1>
+    path: "/search/:query",
+    Component: () => <h1>Buscardor</h1>
   }
 ]
 
@@ -23,7 +24,7 @@ function App() {
 
   return (
     <main>
-      <Router routes={routes} />
+      <Router routes={routes} defaultComponent={Error404}/>
     </main>
   )
 }
