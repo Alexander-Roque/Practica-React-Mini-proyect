@@ -1,22 +1,17 @@
 import * as React from "react"
-import { EVENT } from './consts'
+import { lazy, Suspense } from "react";
 import HomePage from "./pages/home";
-import { About } from "./pages/about";
 import { Router } from "./Router";
 import Error404 from "./pages/Error";
+import SearchDinamy from "./pages/SearchDinamy";
+import Route from "./Route";
 
-const routes = [
+const LazyAboutPage = lazy(()=>import('./pages/about.jsx'))
+
+const appRoutes = [
   {
-    path: '/',
-    Component: HomePage
-  },
-  {
-    path:'/about',
-    Component: About
-  },
-  {
-    path: "/search/:query",
-    Component: () => <h1>Buscardor</h1>
+    path: '/search/:query',
+    Component: SearchDinamy
   }
 ]
 
@@ -24,7 +19,12 @@ function App() {
 
   return (
     <main>
-      <Router routes={routes} defaultComponent={Error404}/>
+      <Suspense fallback={<div>Loading...</div>}>
+      <Router routes={appRoutes} defaultComponent={Error404}>
+        <Route path='/' Component={HomePage} />
+        <Route path='/about' Component={LazyAboutPage} />
+      </Router>
+      </Suspense>
     </main>
   )
 }
