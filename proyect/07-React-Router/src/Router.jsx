@@ -1,14 +1,15 @@
 import * as React from "react"
 import { EVENT } from "./consts";
 import {match} from "path-to-regexp"
+import { getCurrentPath } from "./utils";
 
 
 export function Router({children, routes = [], defaultComponent: DefaultComponent = ()=> <h1>Error 404</h1>}) {
-  const [currentPath, setCurrentPath] = React.useState(window.location.pathname);
+  const [currentPath, setCurrentPath] = React.useState(getCurrentPath());
 
   React.useEffect(()=>{
     const onLocationChange = ()=> {
-      setCurrentPath(window.location.pathname)
+      setCurrentPath(getCurrentPath())
     }
 
     window.addEventListener(EVENT.PUSHSTATE, onLocationChange)
@@ -31,7 +32,7 @@ export function Router({children, routes = [], defaultComponent: DefaultComponen
     return isRoute ? props : null
   })
 
-  const routesToUse = routes.concat(routesFromChildren)
+  const routesToUse = routes.concat(routesFromChildren).filter(Boolean)
 
   // Se realizo todo esto con la finalidad de aceptar rutas dinamicas ejm: /search/:polo 
   const Page = routesToUse.find(({path})=>{

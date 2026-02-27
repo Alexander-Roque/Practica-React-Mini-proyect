@@ -11,7 +11,10 @@
   "license": "ISC",
   "type": "commonjs",
   "devDependencies": {
-    "standard": "^17.1.2"
+    "@testing-library/react": "^16.3.2",
+    "happy-dom": "^20.7.0",
+    "standard": "^17.1.2",
+    "vitest": "^4.0.18"
   },
   "eslintConfig": {
     "extends": "./node_modules/standard/eslintrc.json"
