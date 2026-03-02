@@ -1,16 +1,26 @@
 {
   "name": "package.json",
-  "private": true,
-  "version": "0.0.0",
+  "version": "0.0.1",
   "type": "module",
+  "main": "lib/index.js",
+  "module": "lib/index.js",
+  "exports" : {
+    ".": {
+      "import":"./lib/index.js",
+      "require":"./lib/index.js"
+    },
+    "./package.json": "./package.json"
+  },
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "prepare": "swc ./src/*.jsx -d lib",
     "lint": "eslint .",
     "preview": "vite preview",
     "test": "vitest"
   },
   "dependencies": {
+    "@swc/core": "^1.15.18",
     "path-to-regexp": "8.3.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0"
