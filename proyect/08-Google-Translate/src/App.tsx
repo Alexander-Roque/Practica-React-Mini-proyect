@@ -7,6 +7,7 @@ import { AUTO_LANGUAGES } from './constants'
 import {ArrowIcons} from "./components/icons"
 import { LanguagesSelector } from './components/LanguagesSelector'
 import { SectionType } from './types.d'
+import { TextArea } from './components/TextArea'
 
 
 
@@ -27,7 +28,6 @@ function App() {
       onChange={setFromLanguage} />
 
       <Form.Control 
-      as="textarea"
       placeholder='Introducir texto'
       autoFocus
       style={{height: "5rem"}} />
@@ -44,8 +44,7 @@ function App() {
       type= {SectionType.To}
       value={toLanguage}
       onChange={setToLanguage}/>
-      <Form.Control 
-      as="textarea"
+      <TextArea
       placeholder='Traduccion'
       style={{height: "5rem"}} />
       </Stack>
