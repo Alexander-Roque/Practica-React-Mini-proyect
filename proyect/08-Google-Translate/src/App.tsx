@@ -8,11 +8,15 @@ import {ArrowIcons} from "./components/icons"
 import { LanguagesSelector } from './components/LanguagesSelector'
 import { SectionType } from './types.d'
 import { TextArea } from './components/TextArea'
+import { TextAreaTwo } from './components/TextAreaTwo'
 
 
 
 function App() {
-  const {fromLanguage,toLanguage, interchangeLanguages, setFromLanguage, setToLanguage} = useStore()
+  const {fromLanguage,toLanguage, interchangeLanguages, setFromLanguage, setToLanguage, setFromText, setResult, fromText, result} = useStore()
+
+    console.log(result)
+    console.log(fromText)
 
   return (
     <>
@@ -27,10 +31,11 @@ function App() {
       value={fromLanguage}
       onChange={setFromLanguage} />
 
-      <Form.Control 
-      placeholder='Introducir texto'
-      autoFocus
-      style={{height: "5rem"}} />
+      <TextAreaTwo
+      type={SectionType.From}
+      value={fromText}
+      onChange={setFromText}
+      />
       </Stack>
       </Col>
 
@@ -44,9 +49,12 @@ function App() {
       type= {SectionType.To}
       value={toLanguage}
       onChange={setToLanguage}/>
-      <TextArea
-      placeholder='Traduccion'
-      style={{height: "5rem"}} />
+
+      <TextAreaTwo
+        type={SectionType.To}
+        value={result}
+        onChange={setResult}
+      />
       </Stack>
       </Col>
     </Row>

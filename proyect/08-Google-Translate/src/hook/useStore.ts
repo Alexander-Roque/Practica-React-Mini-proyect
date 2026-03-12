@@ -1,6 +1,6 @@
 import { AUTO_LANGUAGES } from '../constants';
 import type { FromLanguages, Language, State } from '../types'
-import type { Action } from '../types'
+import type { Action } from '../types.d'
 import * as React from "react"
 
 
@@ -8,8 +8,8 @@ import * as React from "react"
 const initialState: State = {
   fromLanguage: 'auto',
   toLanguage: 'english',
-  fromText: '.',
-  result: '.',
+  fromText: '',
+  result: '',
   loading: false
 }
 
@@ -44,7 +44,7 @@ function reducer(state: State, action: Action){
     return{
       ...state,
       loading: true,
-      fromLanguage: action.payload,
+      fromText: action.payload,
       result: ''
     }
   }
@@ -53,7 +53,7 @@ function reducer(state: State, action: Action){
     return{
       ...state,
       loading: false,
-      toLanguage: action.payload
+      result: action.payload
     }
   }
 
@@ -81,6 +81,5 @@ export function useStore() {
         dispatch ({type:'SET_RESULT', payload})
       }
     
-      console.log(fromLanguage)
       return {fromLanguage, toLanguage, fromText, result, loading, interchangeLanguages, setFromLanguage, setToLanguage, setFromText, setResult}
 }
