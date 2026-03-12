@@ -1,17 +1,33 @@
 import { Form } from "react-bootstrap";
 import { SectionType } from "../types.d";
+import type React from "react";
 
-interface Props {autoFocus:boolean,placeholder: string,loading?: undefined, onChange:(value:string)=> void, value:string}
+interface Props {type:SectionType,loading?: undefined, onChange:(value:string)=> void, value:string}
 
-// const commonStyle = {height: "12.5rem"}
+const commonStyle = {border: 0, height: "12.5rem", resize: "none"}
 
-export function TextArea ({placeholder, autoFocus,loading, type, value, onChange}: Props) {
+const getPlaceholder = ({type, loading}:{ type: SectionType, loading?: boolean})=>{
+    if (type === SectionType.From) return 'Introducir Texto'
+    if (loading === true) return "Cargando..."
+    return "Traducir"
+}
+
+export function TextArea ({ type,loading, value, onChange}: Props) {
+    const styles = type === SectionType.From ? commonStyle : {...commonStyle, background: '#f5f5f5'}
+
+    const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>)=>{
+        onChange(event.target.value)
+    }
+
     return (
         <Form.Control
         autoFocus={type === SectionType.From}
         as='textarea'
-        placeholder={placeholder}
-        style={{height: "5rem"}} 
+        disabled = {type === SectionType.To}
+        placeholder={getPlaceholder({type, loading})}
+        style={styles}
+        value={value}
+        onChange={handleChange}
         />
     )
 }

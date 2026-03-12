@@ -8,15 +8,11 @@ import {ArrowIcons} from "./components/icons"
 import { LanguagesSelector } from './components/LanguagesSelector'
 import { SectionType } from './types.d'
 import { TextArea } from './components/TextArea'
-import { TextAreaTwo } from './components/TextAreaTwo'
 
 
 
 function App() {
-  const {fromLanguage,toLanguage, interchangeLanguages, setFromLanguage, setToLanguage, setFromText, setResult, fromText, result} = useStore()
-
-    console.log(result)
-    console.log(fromText)
+  const {fromLanguage,toLanguage, interchangeLanguages, setFromLanguage, setToLanguage, setFromText, setResult, fromText, result, loading} = useStore()
 
   return (
     <>
@@ -31,7 +27,7 @@ function App() {
       value={fromLanguage}
       onChange={setFromLanguage} />
 
-      <TextAreaTwo
+      <TextArea
       type={SectionType.From}
       value={fromText}
       onChange={setFromText}
@@ -50,7 +46,8 @@ function App() {
       value={toLanguage}
       onChange={setToLanguage}/>
 
-      <TextAreaTwo
+      <TextArea
+        loading={loading}
         type={SectionType.To}
         value={result}
         onChange={setResult}
