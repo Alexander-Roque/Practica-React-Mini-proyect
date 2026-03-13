@@ -1,4 +1,4 @@
-import {OpenAIApi} from "openai"
+import OpenAIApi from "openai"
 import Configuration from "openai"
 import { SUPPORT_LANGUAGES } from "../constants";
 import type { FromLanguages, Language } from "../types.d";
@@ -13,13 +13,14 @@ const openai = new OpenAIApi(configuration)
 
 export async function translate({
     fromLanguage,
-    ToLanguage,
+    toLanguage,
     text
 }: {
     fromLanguage: FromLanguages,
     toLanguage: Language,
     text: string
 }) {
+    if (fromLanguage === toLanguage) return text
     const message = [
         {
             role: "system",
@@ -27,7 +28,7 @@ export async function translate({
         },
         {
             role: "user",
-            content: `Hola mundo {{Spanish}} [[English]]`
+            content: `Hola mundo {{Español}} [[English]]`
         },
         {
             role: "assistant",
@@ -43,7 +44,7 @@ export async function translate({
         },
         {
             role: "user",
-            content: "Bon dia, com estas? {{auto}} [[Spanish]]"
+            content: "Bon dia, com estas? {{auto}} [[Español]]"
         }
     ]
 
