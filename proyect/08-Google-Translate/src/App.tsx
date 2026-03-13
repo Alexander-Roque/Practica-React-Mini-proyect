@@ -8,11 +8,23 @@ import {ArrowIcons} from "./components/icons"
 import { LanguagesSelector } from './components/LanguagesSelector'
 import { SectionType } from './types.d'
 import { TextArea } from './components/TextArea'
+import { translate } from './services/translate'
 
 
 
 function App() {
   const {fromLanguage,toLanguage, interchangeLanguages, setFromLanguage, setToLanguage, setFromText, setResult, fromText, result, loading} = useStore()
+
+  React.useEffect(()=>{
+    if(fromText === "") return
+
+    translate({fromLanguage, toLanguage, text:fromText})
+    .then(()=>{
+      if (result == null) return
+      setResult(result)
+    }). catch(()=> setResult("Error"))
+
+  }, [fromText])
 
   return (
     <>
