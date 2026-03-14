@@ -2,6 +2,7 @@ import { useState } from 'react'
 import './App.css'
 import * as React from "react"
 import {type User} from "./type.d"
+import { UsersList } from './components/UsersList'
 
 const curl = 'https://randomuser.me/api?results=100'
 
@@ -30,9 +31,7 @@ function App() {
     <>
       <div className='App'>
         <h1>Pruebas tecnicas</h1>
-        {
-          JSON.stringify(users)
-        }
+        <UsersList users={users}/>
       </div>
     </>
   )
